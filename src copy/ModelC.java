@@ -44,7 +44,7 @@ public class ModelC implements Model{
     }
 
     public boolean get(Symbol s) { //No boolean with S
-        if (table.get(s) == null) System.out.println("NULL");
+        if (table.get(s) == null) System.out.println(s + " == NULL");
         return table.get(s);
     }
 

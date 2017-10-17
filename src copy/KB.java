@@ -88,7 +88,6 @@ public class KB implements Sentence {
 
         Collection<Symbol> KBsymbols = kb.symtab.symbols();  //Fucking up
 
-
         Iterator<Symbol> iterator = KBsymbols.iterator();
         //List<Symbol> symbols = s.getSymbol();
         Iterator<Symbol> use;
@@ -99,8 +98,6 @@ public class KB implements Sentence {
             symbols.add(temp);
             iterator.remove();
         }
-
-
 
         return TTCheckAll(kb, s, symbols, new ModelC());
     }
@@ -113,11 +110,12 @@ public class KB implements Sentence {
                 return true;
             }
         }
+        //System.out.println(model.table.toString());
         Symbol p = symbols.remove(0);
         boolean ret;
 
         ModelC temp1 = model.c();
-        System.out.println(temp1);
+        //System.out.println(temp1);
         temp1.set(p,true);
         ModelC temp2 = model.c();
         temp2.set(p,false);

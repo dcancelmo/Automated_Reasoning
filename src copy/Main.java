@@ -35,7 +35,21 @@ public class Main {
         boolean print = kb.TTEntails(kb,new Symbol("Q"));
         System.out.println(print);
 
+        kb = new KB();
+        Symbol myth = kb.intern("myth");
+        Symbol immortal = kb.intern("immortal");
+        Symbol mammal = kb.intern("mammal");
+        Symbol horned = kb.intern("horned");
+        Symbol magical = kb.intern("magical");
 
+        kb.add(new Implication(myth, immortal));
+        kb.add(new Implication(new Negation(myth), mammal));
+        kb.add(new Implication(new Disjunction(immortal, mammal), horned));
+        kb.add(new Implication(horned, magical));
+
+        System.out.println("Done");
+        print = kb.TTEntails(kb, magical);
+        System.out.println(print);
 
 
         kb = new KB();
@@ -54,6 +68,8 @@ public class Main {
         kb.add(b21);
 
         System.out.println("Done");
+        //kb.print();
+        //System.out.println(kb.sentences.toString());
         print = kb.TTEntails(kb,new Symbol("P1,2"));
         System.out.println(print);
 
