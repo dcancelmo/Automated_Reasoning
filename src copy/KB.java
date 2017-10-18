@@ -105,6 +105,8 @@ public class KB implements Sentence {
     public boolean TTCheckAll(KB kb, Sentence s, List<Symbol> symbols, ModelC model) {
 
         if (symbols.isEmpty()) {
+            //model.dump();
+            //System.out.println(kb.toString() + " here");
             if (model.satisfies(kb)) return model.satisfies(s);
             else {
                 return true;

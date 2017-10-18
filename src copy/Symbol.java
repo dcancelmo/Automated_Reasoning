@@ -29,6 +29,8 @@ public class Symbol implements Sentence {
      * That is, if it is assigned true by the model.
      */
     public boolean isSatisfiedBy(Model model) {
+//        model.dump();
+        //System.out.println(model.toString());
         return model.get(this);
     }
 

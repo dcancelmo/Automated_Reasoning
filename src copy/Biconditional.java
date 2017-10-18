@@ -13,6 +13,7 @@ public class Biconditional extends BinaryCompoundSentence {
      * both arguments are not satisfied by the Model.
      */
     public boolean isSatisfiedBy(Model model) {
+        System.out.println(lhs + " => " + rhs);
         return lhs.isSatisfiedBy(model) == rhs.isSatisfiedBy(model);
     }
 

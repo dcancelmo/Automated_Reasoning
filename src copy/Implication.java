@@ -13,6 +13,7 @@ public class Implication extends BinaryCompoundSentence {
      * its rhs is satisified by the Model.
      */
     public boolean isSatisfiedBy(Model model) {
+        System.out.println(lhs + " => " + rhs);
         return !lhs.isSatisfiedBy(model) || rhs.isSatisfiedBy(model);
     }
 

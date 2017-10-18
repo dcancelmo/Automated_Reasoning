@@ -25,7 +25,7 @@ public class ModelC implements Model{
     }
 
     public void dump() {
-        table.toString();
+        System.out.println(table.toString());
     }
 
     public boolean satisfies(Sentence s) {
@@ -37,6 +37,7 @@ public class ModelC implements Model{
         List<Sentence> sentenceList = kb.sentences;
         boolean isSatisfied = true;
         for (Sentence s : sentenceList) {
+//            System.out.println(s.toString());
             isSatisfied &= s.isSatisfiedBy(this);
         }
 
@@ -44,7 +45,10 @@ public class ModelC implements Model{
     }
 
     public boolean get(Symbol s) { //No boolean with S
-        if (table.get(s) == null) System.out.println(s + " == NULL");
+        if (table.get(s) == null) {
+            System.out.println(s + " NULL");
+        }
+        System.out.println(s + "\t" + table.toString());
         return table.get(s);
     }
 
