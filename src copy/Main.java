@@ -33,14 +33,32 @@ public class Main {
                 System.out.println("Invalid input!");
             }
         }
+        if (check == 0) {
+            modusPonens();
+            wumpus();
+            unicorns();
+            liarsTruth();
+            liarsExtended();
+        } else if (check == 1) {
+            modusPonens();
+            System.out.print("Enter any key for the next test (Wumpus): ");
+            sc.next();
+            wumpus();
+            System.out.print("Enter any key for the next test (Unicorns): ");
+            sc.next();
+            unicorns();
+            System.out.print("Enter any key for the next test (Liars & Truth-Tellers): ");
+            sc.next();
+            liarsTruth();
+            System.out.print("Enter any key for the next test (More Liars & Truth-Tellers): ");
+            sc.next();
+            liarsExtended();
+        } else if (check == -1) {
+            System.out.println("An error has occurred!");
+        }
 
 
 
-        modusPonens();
-        wumpus();
-        unicorns();
-        liarsTruth();
-        liarsExtended();
     }
 
     //Modus Ponens entailment - Sample 1
@@ -158,7 +176,7 @@ public class Main {
         kb.add(new Biconditional(lee, new Conjunction(new Negation(bob), new Negation(jay))));
 
         for (Symbol person : kb.symbols()) {
-            System.out.println("____Detemrining " + person.name + "'s truthfulness____");
+            System.out.println("____Determining " + person.name + "'s truthfulness____");
             Sentence query = person;
             entailmentCheck(kb, query);
         }
@@ -175,7 +193,7 @@ public class Main {
         kb.print();
         System.out.println("\nEntailment\n==========");
         result = checker.entails(kb, query);
-        System.out.println("\nENTAILS? "+result+".");
+        System.out.println("\nWith a query of '" + query + "' ENTAILS? "+result+".");
         System.out.println("*Done*\n");
     }
 
