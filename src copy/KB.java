@@ -1,18 +1,15 @@
-
-import com.sun.org.apache.xpath.internal.operations.Mod;
-
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.*;
+import java.lang.Math;
 
 /**
  * A KB is a set (actually a List) of Sentences and a SymbolTable
  * holding the PropositionalSymbols used in those sentences.
  */
 public class KB implements Sentence {
-    //Look for code in lecture 2.2 slide 118
 
     protected List<Sentence> sentences;
     protected SymbolTable symtab;
+    protected ModelC[] supermodel;
 
     public KB(List<Sentence> sentences, SymbolTable symtab) {
         this.sentences = sentences;
@@ -23,19 +20,17 @@ public class KB implements Sentence {
         this(new LinkedList<Sentence>(), new SymbolTable());
     }
 
-
+    /**
+     * Prints every Sentence in the KB.
+     */
     public void print() {
-        Sentence temp;
-        Object[] a = sentences.toArray();
-        int length = a.length;
-
-        for (int i = 0; i < length; i ++) {
-            temp = sentences.get(i);
-            temp.print();
-        }
-
+        for (Sentence thisSentence : this.sentences)
+            thisSentence.print();
     }
 
+    /**
+     * This should never be called. Here to satisfy Sentence implementation.
+     */
     public List<Symbol> getSymbol() {
         System.out.println("You fucked up");
         return null;
@@ -49,6 +44,9 @@ public class KB implements Sentence {
         return symtab.symbols();
     }
 
+    /**
+     * Return true if a given Model satisfies this KB.
+     */
     public boolean isSatisfiedBy(Model model) {
         return model.satisfies(this);
     }
@@ -84,57 +82,29 @@ public class KB implements Sentence {
         }
     }
 
-    public boolean TTEntails(KB kb, Sentence s) {
-
-        Collection<Symbol> KBsymbols = kb.symtab.symbols();  //Fucking up
-
-        Iterator<Symbol> iterator = KBsymbols.iterator();
-        //List<Symbol> symbols = s.getSymbol();
-        Iterator<Symbol> use;
-        Symbol temp;
-        List<Symbol> symbols = new ArrayList<>();
-        while (iterator.hasNext()) {
-            temp = iterator.next();
-            symbols.add(temp);
-            iterator.remove();
+    /**
+     * Prints the contents of every Model in this KB to System.out.
+     */
+    public void dumpSupermodel() {
+        if (supermodel == null) {
+            System.out.println("(Empty)");
+            return;
         }
-
-        return TTCheckAll(kb, s, symbols, new ModelC());
+        for (ModelC m : supermodel)
+            m.dump();
     }
 
-    public boolean TTCheckAll(KB kb, Sentence s, List<Symbol> symbols, ModelC model) {
-
-        if (symbols.isEmpty()) {
-            //model.dump();
-            //System.out.println(kb.toString() + " here");
-            if (model.satisfies(kb)) return model.satisfies(s);
-            else {
-                return true;
+    /**
+     * Updates the supermodel of every Model in this KB to include new Symbols.
+     */
+    public void updateSupermodel(List<Symbol> symbolList) {
+        supermodel = new ModelC[(int)Math.pow(2, symbolList.size())];
+        for (int i=0; i<supermodel.length; i++) {
+            String binaryString = String.format("%"+symbolList.size()+"s", Integer.toBinaryString(i)).replace(" ", "0");
+            supermodel[i] = new ModelC();
+            for (int p=0; p<binaryString.length(); p++) {
+                supermodel[i].set(symbolList.get(p), '1' == binaryString.charAt(p));
             }
         }
-        //System.out.println(model.table.toString());
-        Symbol p = symbols.remove(0);
-        boolean ret;
-
-        ModelC temp1 = model.c();
-        //System.out.println(temp1);
-        temp1.set(p,true);
-        ModelC temp2 = model.c();
-        temp2.set(p,false);
-
-
-        return (TTCheckAll(kb,s,symbols,temp1) && TTCheckAll(kb,s,symbols,temp2));
-
     }
-
-
-    //Go through what the method is doing
-    //Figure out what "Follows from" means- the sentence holds within the model?
-    //Figure out how to implement "Model" -- is it just one symbol or more?
-    //How to check this using the things he wants us to
-    //How do we know the model will have the same symbols as the sentence?
-
-
-
-
 }

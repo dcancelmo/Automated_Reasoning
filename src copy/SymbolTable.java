@@ -1,6 +1,5 @@
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -40,14 +39,8 @@ public class SymbolTable {
 
 
     public void print() {
-        Collection<Symbol> col = symbols();
-        Iterator<Symbol> iter = col.iterator();
-        Symbol temp;
-        while (iter.hasNext()) {
-            temp = iter.next();
-            iter.remove();
-            System.out.println(temp.name);
-        }
+        for (Symbol s : symbols())
+            System.out.println(s.name);
     }
 }
 
