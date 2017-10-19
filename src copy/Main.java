@@ -1,5 +1,7 @@
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by joshuawolkoff on 10/12/17.
@@ -14,13 +16,34 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean isValid = false;
+        int check = -1;
+        while (!isValid) {
+            try {
+                System.out.print("Enter 0 to run all tests at once or enter 1 to run one at a time: ");
+                check = sc.nextInt();
+                if (check == 0 || check == 1) {
+                    isValid = true;
+                } else {
+                    System.out.println("Invalid input!");
+                }
+            } catch (InputMismatchException e) {
+                sc.nextLine();
+                System.out.println("Invalid input!");
+            }
+        }
+
+
+
         modusPonens();
-        unicorns();
         wumpus();
+        unicorns();
         liarsTruth();
+        liarsExtended();
     }
 
-    //Modus Ponens entailment
+    //Modus Ponens entailment - Sample 1
     public static void modusPonens() {
         System.out.println("________________Modus Ponens________________");
         KB kb = new KB();
@@ -32,7 +55,7 @@ public class Main {
         Sentence query = p;
         entailmentCheck(kb, query);
     }
-    //Unicorn entailment
+    //Unicorn entailment - Sample 3
     public static void unicorns() {
         System.out.println("________________Unicorns________________");
         KB kb = new KB();
@@ -49,7 +72,7 @@ public class Main {
         Sentence query = magical;
         entailmentCheck(kb, query);
     }
-    //Wumpus World entailment
+    //Wumpus World entailment - Sample 2
     public static void wumpus() {
         System.out.println("________________Wumpus World________________");
         KB kb = new KB();
@@ -69,8 +92,9 @@ public class Main {
         Sentence query = p12;
         entailmentCheck(kb, query);
     }
-    //Liars and truth-tellers
+    //Liars and truth-tellers - Sample 4a and 4b
     public static void liarsTruth() {
+        System.out.println("________________Liars and Truth-Tellers________________");
         System.out.println("________Liars and Truth-Tellers Part A________");
         KB kb = new KB();
         Symbol amy = kb.intern("amy");
@@ -91,6 +115,7 @@ public class Main {
         kb.add(new Biconditional(cal, bob));
         liarChecker(kb);
     }
+    //Helper function for liarsTruth() to reuse code
     public static void liarChecker(KB kb) {
         Sentence query = new Symbol("amy");
         System.out.println("Determining Amy's truthfulness");
@@ -102,6 +127,43 @@ public class Main {
         System.out.println("Determining Cal's truthfulness");
         entailmentCheck(kb, query);
     }
+    //Extended Liars and truth-tellers - Sample 5
+    public static void liarsExtended() {
+        System.out.println("________________More Liars and Truth-Tellers________________");
+        KB kb = new KB();
+        Symbol amy = kb.intern("amy");
+        Symbol bob = kb.intern("bob");
+        Symbol cal = kb.intern("cal");
+        Symbol dee = kb.intern("dee");
+        Symbol eli = kb.intern("eli");
+        Symbol fay = kb.intern("fay");
+        Symbol gil = kb.intern("gil");
+        Symbol hal = kb.intern("hal");
+        Symbol ida = kb.intern("ida");
+        Symbol jay = kb.intern("jay");
+        Symbol kay = kb.intern("kay");
+        Symbol lee = kb.intern("lee");
+
+        kb.add(new Biconditional(amy, new Conjunction(hal, ida)));
+        kb.add(new Biconditional(bob, new Conjunction(amy, lee)));
+        kb.add(new Biconditional(cal, new Conjunction(bob, gil)));
+        kb.add(new Biconditional(dee, new Conjunction(eli, lee)));
+        kb.add(new Biconditional(eli, new Conjunction(cal, hal)));
+        kb.add(new Biconditional(fay, new Conjunction(dee, ida)));
+        kb.add(new Biconditional(gil, new Conjunction(new Negation(eli), new Negation(jay))));
+        kb.add(new Biconditional(hal, new Conjunction(new Negation(fay), new Negation(kay))));
+        kb.add(new Biconditional(ida, new Conjunction(new Negation(gil), new Negation(kay))));
+        kb.add(new Biconditional(jay, new Conjunction(new Negation(amy), new Negation(cal))));
+        kb.add(new Biconditional(kay, new Conjunction(new Negation(dee), new Negation(fay))));
+        kb.add(new Biconditional(lee, new Conjunction(new Negation(bob), new Negation(jay))));
+
+        for (Symbol person : kb.symbols()) {
+            System.out.println("____Detemrining " + person.name + "'s truthfulness____");
+            Sentence query = person;
+            entailmentCheck(kb, query);
+        }
+
+    }
 
     public static void entailmentCheck(KB kb, Sentence query) {
         boolean result;
@@ -109,15 +171,12 @@ public class Main {
 
         System.out.println("Symbol Table\n============");
         kb.symtab.print();
-        System.out.println("*Done*");
-        System.out.println("Knowledge Base\n==============");
+        System.out.println("\nKnowledge Base\n==============");
         kb.print();
-        System.out.println("*Done*");
-        System.out.println("Entailment\n==========");
+        System.out.println("\nEntailment\n==========");
         result = checker.entails(kb, query);
-        System.out.println("ENTAILS? "+result+".");
-        System.out.println("*Done*");
-        System.out.println();
+        System.out.println("\nENTAILS? "+result+".");
+        System.out.println("*Done*\n");
     }
 
 }
