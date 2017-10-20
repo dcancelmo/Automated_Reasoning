@@ -84,12 +84,11 @@ public class Main {
         Symbol q = kb.intern("Q");
         kb.add(p);
         kb.add(new Implication(p, q));
-        KB satKB = kb;
 
-        Sentence query = p;
+        Sentence query = q;
         entailmentCheck(kb, query);
-
-        walkSAT(satKB, 0.5, 10000);
+        kb.add(new Negation(query));
+        walkSAT(kb, 0.5, 100000);
     }
     //Unicorn entailment - Sample 3
     public static void unicorns() {
@@ -104,12 +103,11 @@ public class Main {
         kb.add(new Implication(new Negation(mythical), mammal));
         kb.add(new Implication(new Disjunction(immortal, mammal), horned));
         kb.add(new Implication(horned, magical));
-        KB satKB = kb;
 
         Sentence query = magical;
         entailmentCheck(kb, query);
-
-        walkSAT(satKB, 0.5, 10000);
+        kb.add(new Negation(query));
+        walkSAT(kb, 0.5, 100000);
     }
     //Wumpus World entailment - Sample 2
     public static void wumpus() {
@@ -127,11 +125,11 @@ public class Main {
         kb.add(new Biconditional(b21, new Disjunction(p12, new Disjunction(p22, p31))));
         kb.add(new Negation(b11));
         kb.add(b21);
-        KB satKB = kb;
 
         Sentence query = p12;
         entailmentCheck(kb, query);
-        walkSAT(satKB, 0.5, 10000);
+        kb.add(new Negation(query));
+        walkSAT(kb, 0.5, 100000);
     }
     //Liars and truth-tellers - Sample 4a and 4b
     public static void liarsTruth() {
@@ -161,15 +159,21 @@ public class Main {
         Sentence query = new Symbol("amy");
         System.out.println("____Determining Amy's truthfulness____");
         entailmentCheck(kb, query);
-        walkSAT(kb, 0.5, 10000);
+        KB amyKB = kb;
+        amyKB.add(new Negation(query));
+        walkSAT(amyKB, 0.5, 100000);
         query = new Symbol("bob");
         System.out.println("____Determining Bob's truthfulness____");
         entailmentCheck(kb, query);
-        walkSAT(kb, 0.5, 10000);
+        KB bobKB = kb;
+        bobKB.add(new Negation(query));
+        walkSAT(bobKB, 0.5, 100000);
         query = new Symbol("cal");
         System.out.println("____Determining Cal's truthfulness____");
         entailmentCheck(kb, query);
-        walkSAT(kb, 0.5, 10000);
+        KB calKB = kb;
+        calKB.add(new Negation(query));
+        walkSAT(calKB, 0.5, 100000);
     }
     //Extended Liars and truth-tellers - Sample 5
     public static void liarsExtended() {
@@ -205,7 +209,9 @@ public class Main {
             System.out.println("____Determining " + person.name + "'s truthfulness____");
             Sentence query = person;
             entailmentCheck(kb, query);
-            walkSAT(kb, 0.5, 10000);
+            KB tempKB = kb;
+            tempKB.add(new Negation(query));
+            walkSAT(tempKB, 0.5, 100000);
         }
 
     }
