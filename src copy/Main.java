@@ -49,6 +49,7 @@ public class Main {
                 System.out.println("Invalid input!");
             }
         }
+        System.out.println("=========================Part 1: Basic Model Checking=========================");
         if (check == 0) {
             modusPonens();
             wumpus();
