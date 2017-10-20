@@ -14,6 +14,7 @@ import java.util.Scanner;
 //Add test cases for Part II.
 
 public class Main {
+    public static int fullInfo = -1;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -24,6 +25,21 @@ public class Main {
                 System.out.print("Enter 0 to run all tests at once or enter 1 to run one at a time: ");
                 check = sc.nextInt();
                 if (check == 0 || check == 1) {
+                    isValid = true;
+                } else {
+                    System.out.println("Invalid input!");
+                }
+            } catch (InputMismatchException e) {
+                sc.nextLine();
+                System.out.println("Invalid input!");
+            }
+        }
+        isValid = false;
+        while (!isValid) {
+            try {
+                System.out.print("Enter 0 to get prints of symtables, kb, etc. (warning can get messy) or enter 1 to just see results: ");
+                fullInfo = sc.nextInt();
+                if (fullInfo == 0 || fullInfo == 1) {
                     isValid = true;
                 } else {
                     System.out.println("Invalid input!");
@@ -187,14 +203,21 @@ public class Main {
         boolean result;
         EntailmentChecker checker = new EntailmentChecker();
 
-        System.out.println("Symbol Table\n============");
-        kb.symtab.print();
-        System.out.println("\nKnowledge Base\n==============");
-        kb.print();
-        System.out.println("\nEntailment\n==========");
-        result = checker.entails(kb, query);
-        System.out.println("\nWith a query of '" + query + "' ENTAILS? "+result+".");
-        System.out.println("*Done*\n");
+        if (fullInfo == 0) {
+            System.out.println("Symbol Table\n============");
+            kb.symtab.print();
+            System.out.println("\nKnowledge Base\n==============");
+            kb.print();
+            System.out.println("\nEntailment\n==========");
+            result = checker.entails(kb, query, fullInfo);
+            System.out.println("\nWith a query of '" + query + "' ENTAILS? "+result+".");
+            System.out.println("*Done*\n");
+        } else {
+            result = checker.entails(kb, query, fullInfo);
+            System.out.println("\nWith a query of '" + query + "' ENTAILS? "+result+".");
+            System.out.println("*Done*\n");
+        }
+
     }
 
 }

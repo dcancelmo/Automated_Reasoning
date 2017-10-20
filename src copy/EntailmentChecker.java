@@ -9,7 +9,7 @@ public class EntailmentChecker {
     /**
      * Returns true if the given KB entails a sentence.
      */
-    public boolean entails(KB kb, Sentence s) {
+    public boolean entails(KB kb, Sentence s, int info) {
 
         //Create set of symbols from kb and s
         ArrayList<Symbol> symbols = new ArrayList<Symbol>();
@@ -21,11 +21,15 @@ public class EntailmentChecker {
         }
 
         //Update model to include new symbols (if there are any)
-        System.out.println("==Symbols Before==");
-        kb.dumpSupermodel();
+        if (info == 0) {
+            System.out.println("==Symbols Before==");
+            kb.dumpSupermodel();
+        }
         kb.updateSupermodel(symbols);
-        System.out.println("==Symbols After==");
-        kb.dumpSupermodel();
+        if (info == 0) {
+            System.out.println("==Symbols After==");
+            kb.dumpSupermodel();
+        }
 
         //Compute entailment
         boolean ret = true;
