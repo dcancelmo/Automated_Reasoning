@@ -10,8 +10,10 @@
  */
 public class Literal {
 
-	public Literal() {
+	private int info;
 
+	public Literal(int info) {
+		this.info = info;
 	}
 
 	/**
@@ -87,9 +89,11 @@ public class Literal {
      * be assigned false by the Model.
      */
     public boolean isSatisfiedBy(Model model) {
-    	System.out.println("Literal.iSatisfiedBy: this=" + this);
-    	model.dump();
-    	System.out.println("  model says: " + model.get(content));
+    	if (info == 1) {
+			System.out.println("Literal.iSatisfiedBy: this=" + this);
+			model.dump();
+			System.out.println("  model says: " + model.get(content));
+		}
     	if (polarity == Polarity.POSITIVE) {
     		return model.get(content);
     	} else {

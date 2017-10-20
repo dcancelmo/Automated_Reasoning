@@ -88,6 +88,8 @@ public class Main {
 
         Sentence query = p;
         entailmentCheck(kb, query);
+
+        walkSAT(satKB, 0.5, 10000);
     }
     //Unicorn entailment - Sample 3
     public static void unicorns() {
@@ -107,7 +109,7 @@ public class Main {
         Sentence query = magical;
         entailmentCheck(kb, query);
 
-        walkSAT(satKB, 0.5, 10);
+        walkSAT(satKB, 0.5, 10000);
     }
     //Wumpus World entailment - Sample 2
     public static void wumpus() {
@@ -129,6 +131,7 @@ public class Main {
 
         Sentence query = p12;
         entailmentCheck(kb, query);
+        walkSAT(satKB, 0.5, 10000);
     }
     //Liars and truth-tellers - Sample 4a and 4b
     public static void liarsTruth() {
@@ -158,12 +161,15 @@ public class Main {
         Sentence query = new Symbol("amy");
         System.out.println("____Determining Amy's truthfulness____");
         entailmentCheck(kb, query);
+        walkSAT(kb, 0.5, 10000);
         query = new Symbol("bob");
         System.out.println("____Determining Bob's truthfulness____");
         entailmentCheck(kb, query);
+        walkSAT(kb, 0.5, 10000);
         query = new Symbol("cal");
         System.out.println("____Determining Cal's truthfulness____");
         entailmentCheck(kb, query);
+        walkSAT(kb, 0.5, 10000);
     }
     //Extended Liars and truth-tellers - Sample 5
     public static void liarsExtended() {
@@ -199,6 +205,7 @@ public class Main {
             System.out.println("____Determining " + person.name + "'s truthfulness____");
             Sentence query = person;
             entailmentCheck(kb, query);
+            walkSAT(kb, 0.5, 10000);
         }
 
     }
@@ -219,7 +226,6 @@ public class Main {
         } else {
             result = checker.entails(kb, query, fullInfo);
             System.out.println("\nWith a query of '" + query + "' ENTAILS? "+result+".");
-            System.out.println("*Done*\n");
         }
 
     }
@@ -227,9 +233,7 @@ public class Main {
     public static void walkSAT(KB kb, double probability, int maxFlips) {
         WalkSAT walk = new WalkSAT(fullInfo);
         Model result = walk.solve(kb, probability, maxFlips);
-        System.out.println();
-        System.out.println();
-        System.out.println("=========== WalkSAT RESULT ===========");
+        System.out.println("\n=========== WalkSAT RESULT ===========");
         result.dump();
         System.out.println();
     }

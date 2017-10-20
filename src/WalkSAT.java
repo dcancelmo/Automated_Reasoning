@@ -6,12 +6,12 @@ import java.util.*;
  */
 public class WalkSAT {
 
-	int info = -1;
+	int info;
 
 	public WalkSAT(int info) {
 		this.info = info;
 	}
-	
+
 	public ModelC solve(KB kb, double probability, int maxFlips) {
 		//Get symbols
 		Collection<Symbol> symbols = kb.symbols();
@@ -85,7 +85,7 @@ public class WalkSAT {
 
 	private void flipBest(Clause clause, Set<Clause> clauses, ModelC model) {
 		int max = Integer.MIN_VALUE;
-		Literal deadassBest = new Literal();
+		Literal deadassBest = new Literal(info);
 		
 		for (Literal s : clause) {
 			flipLiteral(s, model);
