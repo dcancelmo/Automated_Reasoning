@@ -5,8 +5,6 @@
  * Time-stamp: <Fri Mar 16 13:29:51 EDT 2012 ferguson>
  */
 
-package pl.cnf;
-import pl.core.*;
 import java.util.*;
 
 /**

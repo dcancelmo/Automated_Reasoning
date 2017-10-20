@@ -5,15 +5,16 @@
  * Time-stamp: <Fri Mar 23 14:40:03 EDT 2012 ferguson>
  */
 
-package pl.cnf;
-import pl.core.*;
-
 /**
  * A Literal is either a Symbol or the negation of an Symbol.
  */
 public class Literal {
 
-    /**
+	public Literal() {
+
+	}
+
+	/**
      * Enumeration of possible polarities of a Literal (positive or
      * negative).
      */

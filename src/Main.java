@@ -47,11 +47,10 @@ public class Main {
                 System.out.println("Invalid input!");
             }
         }
-        part1Testing(sc);
+        testing(sc);
     }
 
-    public static void part1Testing(Scanner sc) {
-        System.out.println("=========================Part 1: Basic Model Checking=========================");
+    public static void testing(Scanner sc) {
         if (check == 0) {
             modusPonens();
             wumpus();
@@ -85,6 +84,7 @@ public class Main {
         Symbol q = kb.intern("Q");
         kb.add(p);
         kb.add(new Implication(p, q));
+        KB satKB = kb;
 
         Sentence query = p;
         entailmentCheck(kb, query);
@@ -102,9 +102,12 @@ public class Main {
         kb.add(new Implication(new Negation(mythical), mammal));
         kb.add(new Implication(new Disjunction(immortal, mammal), horned));
         kb.add(new Implication(horned, magical));
+        KB satKB = kb;
 
         Sentence query = magical;
         entailmentCheck(kb, query);
+
+        walkSAT(satKB, 0.5, 10);
     }
     //Wumpus World entailment - Sample 2
     public static void wumpus() {
@@ -122,6 +125,7 @@ public class Main {
         kb.add(new Biconditional(b21, new Disjunction(p12, new Disjunction(p22, p31))));
         kb.add(new Negation(b11));
         kb.add(b21);
+        KB satKB = kb;
 
         Sentence query = p12;
         entailmentCheck(kb, query);
@@ -220,5 +224,14 @@ public class Main {
 
     }
 
-}
+    public static void walkSAT(KB kb, double probability, int maxFlips) {
+        WalkSAT walk = new WalkSAT(fullInfo);
+        Model result = walk.solve(kb, probability, maxFlips);
+        System.out.println();
+        System.out.println();
+        System.out.println("=========== WalkSAT RESULT ===========");
+        result.dump();
+        System.out.println();
+    }
 
+}

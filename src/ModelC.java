@@ -30,7 +30,10 @@ public class ModelC implements Model{
      * Prints all values in this model.
      */
     public void dump() {
-        System.out.println(table.toString());
+        if (this.table.isEmpty())
+            System.out.print("(Empty)");
+        else
+            System.out.println(table.toString());
     }
 
     /**

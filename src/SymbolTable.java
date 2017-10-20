@@ -43,5 +43,3 @@ public class SymbolTable {
             System.out.println(s.name);
     }
 }
-
-

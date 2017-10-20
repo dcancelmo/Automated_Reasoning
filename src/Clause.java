@@ -5,10 +5,6 @@
  * Time-stamp: <Fri Mar 23 14:50:20 EDT 2012 ferguson>
  */
 
-package pl.cnf;
-import pl.core.*;
-import pl.util.ArraySet;
-
 /**
  * A clause is a disjunction of literals.
  * We represent it as a set for ease of use later.
@@ -82,5 +78,4 @@ public class Clause extends ArraySet<Literal> {
 		}
 		return false;
 	}
-
 }

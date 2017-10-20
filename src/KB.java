@@ -32,7 +32,7 @@ public class KB implements Sentence {
      * This should never be called. Here to satisfy Sentence implementation.
      */
     public List<Symbol> getSymbol() {
-        System.out.println("You fucked up");
+        System.out.println("You messed up");
         return null;
     }
 
@@ -98,11 +98,11 @@ public class KB implements Sentence {
      * Updates the supermodel of every Model in this KB to include new Symbols.
      */
     public void updateSupermodel(List<Symbol> symbolList) {
-        supermodel = new ModelC[(int)Math.pow(2, symbolList.size())];
-        for (int i=0; i<supermodel.length; i++) {
-            String binaryString = String.format("%"+symbolList.size()+"s", Integer.toBinaryString(i)).replace(" ", "0");
+        supermodel = new ModelC[(int) Math.pow(2, symbolList.size())];
+        for (int i = 0; i < supermodel.length; i++) {
+            String binaryString = String.format("%" + symbolList.size() + "s", Integer.toBinaryString(i)).replace(" ", "0");
             supermodel[i] = new ModelC();
-            for (int p=0; p<binaryString.length(); p++) {
+            for (int p = 0; p < binaryString.length(); p++) {
                 supermodel[i].set(symbolList.get(p), '1' == binaryString.charAt(p));
             }
         }

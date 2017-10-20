@@ -1,8 +1,4 @@
-package pl.cnf;
 import java.util.Set;
-
-import pl.core.*;
-
 /**
  * Converts a test sentence from AIMA 7.5.2 to clauses.
  */

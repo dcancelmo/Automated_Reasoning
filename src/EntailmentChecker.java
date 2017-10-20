@@ -33,7 +33,6 @@ public class EntailmentChecker {
 
         //Compute entailment
         boolean ret = true;
-        //System.out.println(kb.supermodel);
         for (ModelC m : kb.supermodel) {
             if (m.satisfies(kb)) {
                 ret &= m.satisfies(s);
