@@ -14,12 +14,12 @@ import java.util.Scanner;
 //Add test cases for Part II.
 
 public class Main {
-    public static int fullInfo = -1;
+    private static int fullInfo = -1;
+    private static int check = -1;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean isValid = false;
-        int check = -1;
         while (!isValid) {
             try {
                 System.out.print("Enter 0 to run all tests at once or enter 1 to run one at a time: ");
@@ -49,6 +49,10 @@ public class Main {
                 System.out.println("Invalid input!");
             }
         }
+        part1Testing(sc);
+    }
+
+    public static void part1Testing(Scanner sc) {
         System.out.println("=========================Part 1: Basic Model Checking=========================");
         if (check == 0) {
             modusPonens();
@@ -58,24 +62,21 @@ public class Main {
             liarsExtended();
         } else if (check == 1) {
             modusPonens();
-            System.out.print("Enter any key for the next test (Wumpus): ");
+            System.out.print("Enter any character for the next test (Wumpus World): ");
             sc.next();
             wumpus();
-            System.out.print("Enter any key for the next test (Unicorns): ");
+            System.out.print("Enter any character for the next test (Unicorns): ");
             sc.next();
             unicorns();
-            System.out.print("Enter any key for the next test (Liars & Truth-Tellers): ");
+            System.out.print("Enter any character for the next test (Liars & Truth-Tellers): ");
             sc.next();
             liarsTruth();
-            System.out.print("Enter any key for the next test (More Liars & Truth-Tellers): ");
+            System.out.print("Enter any character for the next test (More Liars & Truth-Tellers): ");
             sc.next();
             liarsExtended();
         } else if (check == -1) {
             System.out.println("An error has occurred!");
         }
-
-
-
     }
 
     //Modus Ponens entailment - Sample 1
@@ -153,13 +154,13 @@ public class Main {
     //Helper function for liarsTruth() to reuse code
     public static void liarChecker(KB kb) {
         Sentence query = new Symbol("amy");
-        System.out.println("Determining Amy's truthfulness");
+        System.out.println("____Determining Amy's truthfulness____");
         entailmentCheck(kb, query);
         query = new Symbol("bob");
-        System.out.println("Determining Bob's truthfulness");
+        System.out.println("____Determining Bob's truthfulness____");
         entailmentCheck(kb, query);
         query = new Symbol("cal");
-        System.out.println("Determining Cal's truthfulness");
+        System.out.println("____Determining Cal's truthfulness____");
         entailmentCheck(kb, query);
     }
     //Extended Liars and truth-tellers - Sample 5
