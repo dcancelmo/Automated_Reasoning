@@ -9,7 +9,7 @@ Joshua Wolkoff (jwolkoff), Tyler Knight (tknight2), and Daniel Cancelmo (dcancel
 
 To compile the java code use the following command when in the directory:
 
-	javac 
+	javac Main.java
 
 To begin running the program use the following command:
 
