@@ -6,6 +6,7 @@ ReadMe file
 
 Collaborators for this assignment:
 Joshua Wolkoff (jwolkoff), Tyler Knight (tknight2), and Daniel Cancelmo (dcancelm)
+Acknowledgement to Professor George Ferguson for his starter sample code.
 
 To compile the java code use the following command when in the directory:
 
